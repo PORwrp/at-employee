@@ -45,7 +45,6 @@ public class EmployeeController {
     public ResponseEntity<String> deleteEmployee(@PathVariable(value = "userId") @Valid String userId) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(employeeService.deleteEmployee(userId));
-
     }
 
 }

@@ -1,5 +1,6 @@
 package com.demo.at.employee.controller;
 
+import com.demo.at.employee.controller.advice.GlobalExceptionHandler;
 import com.demo.at.employee.model.Employee;
 import com.demo.at.employee.repository.EmployeeRepository;
 import com.demo.at.employee.service.EmployeeService;
@@ -34,10 +35,15 @@ class EmployeeControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private GlobalExceptionHandler globalExceptionHandler;
+
     @MockBean
     private EmployeeService employeeService;
+
     @Autowired
     private EmployeeController employeeController;
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -56,7 +62,9 @@ class EmployeeControllerTest {
 
     @BeforeEach
     public void before() {
-        this.mvc = MockMvcBuilders.standaloneSetup(employeeController).build();
+        this.mvc = MockMvcBuilders.standaloneSetup(employeeController)
+                .setControllerAdvice(globalExceptionHandler)
+                .build();
         employeeRepository.save(employeeObj1);
     }
 
